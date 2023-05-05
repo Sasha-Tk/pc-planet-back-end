@@ -34,6 +34,7 @@ public class UserInformation {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @JsonIgnore
     private UserRole userRole;
 
     public UserInformation(String email, String username, String password) {
