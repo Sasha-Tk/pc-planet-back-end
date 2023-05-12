@@ -18,12 +18,12 @@ public class ComponentController {
     public ResponseEntity<List<Component>> getGpuById() {
         return ResponseEntity.ok(componentRepository.findAll());
     }
-    @GetMapping("/{id}")
+    @GetMapping("/byID/{id}")
     public ResponseEntity<Component> getGpuById(@PathVariable Long id) {
         return ResponseEntity.ok(componentRepository.findById(id).get());
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/byID/{id}")
     public ResponseEntity<List<Component>> deleteProductById(@PathVariable Long id){
         componentRepository.deleteById(id);
         return ResponseEntity.ok(componentRepository.findAll());

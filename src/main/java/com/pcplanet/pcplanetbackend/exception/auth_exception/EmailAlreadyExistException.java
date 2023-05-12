@@ -1,4 +1,4 @@
-package com.pcplanet.pcplanetbackend.exception;
+package com.pcplanet.pcplanetbackend.exception.auth_exception;
 
 public class EmailAlreadyExistException extends RuntimeException{
     public EmailAlreadyExistException(String message) {

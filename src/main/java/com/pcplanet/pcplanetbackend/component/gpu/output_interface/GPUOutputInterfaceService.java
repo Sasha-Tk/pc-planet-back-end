@@ -1,5 +1,6 @@
 package com.pcplanet.pcplanetbackend.component.gpu.output_interface;
 
+import com.pcplanet.pcplanetbackend.exception.component_exception.gpu_exception.NoSuchOutputInterface;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,15 +21,17 @@ public class GPUOutputInterfaceService {
     }
 
     public GPUOutputInterface findInterfaceByInterfaceName(String interfaceName) {
-        return gpuOutputInterfaceRepository.findByInterfaceName(interfaceName).orElseThrow();
+        return gpuOutputInterfaceRepository
+                .findByInterfaceName(interfaceName)
+                .orElseThrow(() -> new NoSuchOutputInterface("No output interface with this name"));
     }
 
-    public List<GPUOutputInterface> createInterfaces(List<String> interfacesNames) {
+    public List<GPUOutputInterface> createInterfacesOrGetExisting(List<String> interfacesNames) {
         List<GPUOutputInterface> createdInterfaces = new ArrayList<>();
         interfacesNames.forEach(gpuOutputInterfaceName ->
                 createdInterfaces.add(outputInterfaceAlreadyExist(gpuOutputInterfaceName) ?
-                findInterfaceByInterfaceName(gpuOutputInterfaceName) :
-                createInterface(gpuOutputInterfaceName)));
+                        findInterfaceByInterfaceName(gpuOutputInterfaceName) :
+                        createInterface(gpuOutputInterfaceName)));
         return createdInterfaces;
     }
 }

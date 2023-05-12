@@ -1,7 +1,7 @@
 package com.pcplanet.pcplanetbackend.exception_handler;
 
 import com.pcplanet.pcplanetbackend.exception.ExceptionMessage;
-import com.pcplanet.pcplanetbackend.exception.NoSuchUserException;
+import com.pcplanet.pcplanetbackend.exception.user_exception.NoSuchUserException;
 import com.pcplanet.pcplanetbackend.user_information.UserInformationController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

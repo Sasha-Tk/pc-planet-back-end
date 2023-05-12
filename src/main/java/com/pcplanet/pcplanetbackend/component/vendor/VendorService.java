@@ -13,10 +13,12 @@ public class VendorService {
     }
 
     public Vendor findByVendorName(String vendorName) {
-        return vendorRepository.findByVendorName(vendorName).orElseThrow();
+        return vendorRepository
+                .findByVendorName(vendorName)
+                .orElseThrow();
     }
 
-    public Vendor createVendor(String vendorName) {
+    public Vendor createVendorOrGetExisting(String vendorName) {
         return vendorAlreadyExist(vendorName) ?
                 findByVendorName(vendorName) :
                 vendorRepository.save(new Vendor(vendorName));

@@ -2,10 +2,9 @@ package com.pcplanet.pcplanetbackend.component.gpu;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/components/gpu")
@@ -13,8 +12,29 @@ import org.springframework.web.bind.annotation.RestController;
 public class GPUController {
     private final GPUService gpuService;
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<GPU> createGPU(@RequestBody GPUDTO gpudto) {
-        return ResponseEntity.ok(gpuService.createGpu(gpudto));
+        return ResponseEntity.ok(gpuService.createGPU(gpudto));
+    }
+
+    @DeleteMapping("/byID/{id}")
+    public ResponseEntity<String> deleteGPU(@PathVariable Long id) {
+        gpuService.deleteGPU(id);
+        return ResponseEntity.ok("GPU deleted");
+    }
+
+    @PatchMapping("/byID/{id}")
+    public ResponseEntity<GPU> updateGPU(@PathVariable Long id, @RequestBody GPUDTO gpuDTO) {
+        return ResponseEntity.ok(gpuService.updateGPU(id,gpuDTO));
+    }
+
+    @GetMapping()
+    public ResponseEntity<List<GPU>> getAllGPU(){
+        return ResponseEntity.ok(gpuService.getAllGPU());
+    }
+
+    @GetMapping("/filter")
+    public ResponseEntity<List<GPU>> getAllGPU(@RequestBody GPUFilterDTO gpuFilterDTO){
+        return ResponseEntity.ok(gpuService.findGPUByFilterParameters(gpuFilterDTO));
     }
 }

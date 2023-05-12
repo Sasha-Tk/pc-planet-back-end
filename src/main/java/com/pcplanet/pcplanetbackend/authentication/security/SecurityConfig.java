@@ -4,7 +4,7 @@ import com.nimbusds.jose.jwk.source.ImmutableSecret;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 import com.pcplanet.pcplanetbackend.authentication.user.UserDetailsImplementation;
-import com.pcplanet.pcplanetbackend.exception.InvalidTokenException;
+import com.pcplanet.pcplanetbackend.exception.auth_exception.InvalidTokenException;
 import com.pcplanet.pcplanetbackend.user_information.UserInformationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -122,7 +122,7 @@ public class SecurityConfig {
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers("api/v1/auth/sign-up", "api/v1/auth/sign-in")
+                .requestMatchers("api/v1/auth/sign-up", "api/v1/auth/sign-in", "api/v1/components/gpu")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

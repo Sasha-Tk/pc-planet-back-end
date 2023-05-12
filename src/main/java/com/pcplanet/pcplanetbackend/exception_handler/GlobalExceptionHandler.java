@@ -1,7 +1,7 @@
 package com.pcplanet.pcplanetbackend.exception_handler;
 
 import com.pcplanet.pcplanetbackend.exception.ExceptionMessage;
-import com.pcplanet.pcplanetbackend.exception.InvalidTokenException;
+import com.pcplanet.pcplanetbackend.exception.auth_exception.InvalidTokenException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

@@ -2,10 +2,12 @@ package com.pcplanet.pcplanetbackend.component.gpu;
 
 import com.pcplanet.pcplanetbackend.component.Component;
 import com.pcplanet.pcplanetbackend.component.gpu.output_interface.GPUOutputInterface;
+import com.pcplanet.pcplanetbackend.component.size.ComponentSize;
 import com.pcplanet.pcplanetbackend.component.vendor.Vendor;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -20,12 +22,13 @@ public class GPU extends Component {
     private Short memoryAmount;
     private String memoryType;
     private Integer memoryFrequency;
-    private String memoryInterface;
+    private Integer memoryInterfaceWidth;
     private String connectionInterface;
     private String additionalPower;
     private Short recommendedPsuPower;
-    private String size;
-    @ManyToMany
+    @ManyToOne
+    private ComponentSize size;
+    @ManyToMany()
     @JoinTable(name = "gpu_with_interface")
     private List<GPUOutputInterface> outputInterfaces;
 
@@ -37,11 +40,11 @@ public class GPU extends Component {
                Short memoryAmount,
                String memoryType,
                Integer memoryFrequency,
-               String memoryInterface,
+               Integer memoryInterfaceWidth,
                String connectionInterface,
                String additionalPower,
                Short recommendedPsuPower,
-               String size,
+               ComponentSize size,
                List<GPUOutputInterface> outputInterfaces) {
         super(name, sku, vendor);
         this.chip = chip;
@@ -49,11 +52,15 @@ public class GPU extends Component {
         this.memoryAmount = memoryAmount;
         this.memoryType = memoryType;
         this.memoryFrequency = memoryFrequency;
-        this.memoryInterface = memoryInterface;
+        this.memoryInterfaceWidth = memoryInterfaceWidth;
         this.connectionInterface = connectionInterface;
         this.additionalPower = additionalPower;
         this.recommendedPsuPower = recommendedPsuPower;
         this.size = size;
+        this.outputInterfaces = outputInterfaces;
+    }
+
+    public void setOutputInterfaces(List<GPUOutputInterface> outputInterfaces) {
         this.outputInterfaces = outputInterfaces;
     }
 }

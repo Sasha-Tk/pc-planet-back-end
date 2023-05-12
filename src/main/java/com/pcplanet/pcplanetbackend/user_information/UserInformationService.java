@@ -1,6 +1,6 @@
 package com.pcplanet.pcplanetbackend.user_information;
 
-import com.pcplanet.pcplanetbackend.exception.NoSuchUserException;
+import com.pcplanet.pcplanetbackend.exception.user_exception.NoSuchUserException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +17,11 @@ public class UserInformationService {
     }
 
     public UserInformation getUserById(Long id) {
-        return userInformationRepository.findById(id).orElseThrow(()->new NoSuchUserException("User not exist"));
+        return userInformationRepository.findById(id).orElseThrow(() -> new NoSuchUserException("User not exist"));
     }
 
     public UserInformation getUserByEmail(String email) {
-        return userInformationRepository.findByEmail(email).orElseThrow(()->new NoSuchUserException("No user with this email"));
+        return userInformationRepository.findByEmail(email).orElseThrow(() -> new NoSuchUserException("No user with this email"));
     }
 
     public List<UserInformation> getLongTimeInactiveUsers() {

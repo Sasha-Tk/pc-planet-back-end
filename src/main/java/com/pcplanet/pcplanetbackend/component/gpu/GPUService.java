@@ -1,38 +1,49 @@
 package com.pcplanet.pcplanetbackend.component.gpu;
 
-import com.pcplanet.pcplanetbackend.component.gpu.output_interface.GPUOutputInterfaceService;
-import com.pcplanet.pcplanetbackend.component.vendor.VendorService;
+import com.pcplanet.pcplanetbackend.component.mapper.Mapper;
+import com.pcplanet.pcplanetbackend.exception.component_exception.gpu_exception.NoSuchGPUException;
+import com.pcplanet.pcplanetbackend.utils.PartialUpdate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
 public class GPUService {
-    private final VendorService vendorService;
-    private final GPUOutputInterfaceService gpuOutputInterfaceService;
+    private final Mapper<GPUDTO, GPU> gpuMapper;
+    private final Mapper<GPUFilterDTO, GPUFilter> gpuFilterMapper;
     private final GPURepository gpuRepository;
+    private final PartialUpdate<GPU, GPU> partialUpdate;
+    private final GPUFilterDao gpuFilterDao;
 
-    public GPU createGpu(GPUDTO gpuDTO) {
-        return gpuRepository.save(
-                new GPU(
-                        gpuDTO.getComponentName(),
-                        gpuDTO.getSku(),
-                        vendorService
-                                .createVendor(gpuDTO.getVendorName()),
-                        gpuDTO.getChip(),
-                        gpuDTO.getChipFrequency(),
-                        gpuDTO.getMemoryAmount(),
-                        gpuDTO.getMemoryType(),
-                        gpuDTO.getMemoryFrequency(),
-                        gpuDTO.getMemoryInterface(),
-                        gpuDTO.getConnectionInterface(),
-                        gpuDTO.getAdditionalPower(),
-                        gpuDTO.getRecommendedPsuPower(),
-                        gpuDTO.getSize(),
-                        gpuOutputInterfaceService
-                                .createInterfaces(gpuDTO.getOutputInterfaces())
-                )
-        );
+
+    public GPU findGPUById(Long id) {
+        return gpuRepository.findById(id).orElseThrow(() -> new NoSuchGPUException("No such gpu with this id"));
     }
 
+    public GPU createGPU(GPUDTO gpuDTO) {
+        if (gpuDTO.getChipFrequency() == null) {
+            System.out.println(gpuDTO);
+        }
+        return gpuRepository.save(gpuMapper.mapToEntity(gpuDTO));
+    }
+
+    public void deleteGPU(Long id) {
+        gpuRepository.deleteById(findGPUById(id).getId());
+    }
+
+    public GPU updateGPU(Long id, GPUDTO gpuDTO) {
+        GPU gpuForUpdate = findGPUById(id);
+        GPU updatedGPU = gpuMapper.mapToEntity(gpuDTO);
+        return gpuRepository.save(partialUpdate.update(gpuForUpdate, updatedGPU));
+    }
+
+    public List<GPU> findGPUByFilterParameters(GPUFilterDTO gpuFilterDTO) {
+        return gpuFilterDao.findGPUByFilterParameters(gpuFilterMapper.mapToEntity(gpuFilterDTO));
+    }
+
+    public List<GPU> getAllGPU() {
+        return gpuRepository.findAll();
+    }
 }

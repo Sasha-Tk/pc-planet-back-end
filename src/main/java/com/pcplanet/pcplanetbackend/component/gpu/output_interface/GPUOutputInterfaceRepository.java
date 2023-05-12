@@ -6,6 +6,5 @@ import java.util.Optional;
 
 public interface GPUOutputInterfaceRepository extends JpaRepository<GPUOutputInterface, Short> {
     boolean existsByInterfaceName(String interfaceName);
-
     Optional<GPUOutputInterface> findByInterfaceName(String gpuOutputInterfaceName);
 }
