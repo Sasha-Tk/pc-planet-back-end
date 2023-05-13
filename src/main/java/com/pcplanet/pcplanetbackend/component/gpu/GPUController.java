@@ -1,5 +1,7 @@
 package com.pcplanet.pcplanetbackend.component.gpu;
 
+import com.pcplanet.pcplanetbackend.component.FilterDAO;
+import com.pcplanet.pcplanetbackend.component.gpu.output_interface.GPUOutputInterfaceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,16 +27,21 @@ public class GPUController {
 
     @PatchMapping("/byID/{id}")
     public ResponseEntity<GPU> updateGPU(@PathVariable Long id, @RequestBody GPUDTO gpuDTO) {
-        return ResponseEntity.ok(gpuService.updateGPU(id,gpuDTO));
+        return ResponseEntity.ok(gpuService.updateGPU(id, gpuDTO));
     }
 
     @GetMapping()
-    public ResponseEntity<List<GPU>> getAllGPU(){
+    public ResponseEntity<List<GPU>> getAllGPU() {
         return ResponseEntity.ok(gpuService.getAllGPU());
     }
 
     @GetMapping("/filter")
-    public ResponseEntity<List<GPU>> getAllGPU(@RequestBody GPUFilterDTO gpuFilterDTO){
+    public ResponseEntity<List<GPU>> getAllGPU(@RequestBody GPUFilterDTO gpuFilterDTO) {
         return ResponseEntity.ok(gpuService.findGPUByFilterParameters(gpuFilterDTO));
+    }
+
+    @GetMapping("/filters")
+    public ResponseEntity<GPUFilterDTO> getAllGPUFilters() {
+        return ResponseEntity.ok(gpuService.getAllGPUFilters());
     }
 }

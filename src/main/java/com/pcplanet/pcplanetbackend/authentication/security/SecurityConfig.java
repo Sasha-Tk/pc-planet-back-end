@@ -122,7 +122,10 @@ public class SecurityConfig {
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers("api/v1/auth/sign-up", "api/v1/auth/sign-in", "api/v1/components/gpu")
+                .requestMatchers(
+                        "api/v1/auth/sign-up",
+                        "api/v1/auth/sign-in",
+                        "api/v1/components/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
@@ -133,11 +136,11 @@ public class SecurityConfig {
                         (request, response, authException) ->
                                 handlerExceptionResolver
                                         .resolveException(
-                                        request,
-                                        response,
-                                        null,
-                                        new InvalidTokenException(
-                                                authException.getMessage())))
+                                                request,
+                                                response,
+                                                null,
+                                                new InvalidTokenException(
+                                                        authException.getMessage())))
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);

@@ -28,7 +28,7 @@ public class GPU extends Component {
     private Short recommendedPsuPower;
     @ManyToOne
     private ComponentSize size;
-    @ManyToMany()
+    @ManyToMany
     @JoinTable(name = "gpu_with_interface")
     private List<GPUOutputInterface> outputInterfaces;
 
@@ -57,10 +57,6 @@ public class GPU extends Component {
         this.additionalPower = additionalPower;
         this.recommendedPsuPower = recommendedPsuPower;
         this.size = size;
-        this.outputInterfaces = outputInterfaces;
-    }
-
-    public void setOutputInterfaces(List<GPUOutputInterface> outputInterfaces) {
         this.outputInterfaces = outputInterfaces;
     }
 }
