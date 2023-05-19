@@ -30,15 +30,15 @@ public class PcPlanetBackEnd {
             GPUOutputInterfaceRepository gpuOutputInterfaceRepository
     ) {
         return args -> {
-            userInformationRepository.deleteAll();
-            gpuRepository.deleteAll();
-            gpuOutputInterfaceRepository.deleteAll();
-            cpuRepository.deleteAll();
-            gpuRepository.deleteAll();
+//            userInformationRepository.deleteAll();
+//            gpuRepository.deleteAll();
+//            gpuOutputInterfaceRepository.deleteAll();
+//            cpuRepository.deleteAll();
+//            gpuRepository.deleteAll();
             UserInformation u = new UserInformation("example1@gmail.com", "Shadow", new BCryptPasswordEncoder().encode("1234"));
             u.setLastLoginDate(LocalDate.of(2022, 5, 1));
-            userInformationRepository.save(u);
-            userInformationRepository.save(new UserInformation("example2@gmail.com", "Shadow", new BCryptPasswordEncoder().encode("1234")));
+//            userInformationRepository.save(u);
+//            userInformationRepository.save(new UserInformation("example2@gmail.com", "Shadow", new BCryptPasswordEncoder().encode("1234")));
         };
     }
 }

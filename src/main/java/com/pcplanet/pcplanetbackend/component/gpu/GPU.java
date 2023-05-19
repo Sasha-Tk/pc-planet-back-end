@@ -2,12 +2,10 @@ package com.pcplanet.pcplanetbackend.component.gpu;
 
 import com.pcplanet.pcplanetbackend.component.Component;
 import com.pcplanet.pcplanetbackend.component.gpu.output_interface.GPUOutputInterface;
-import com.pcplanet.pcplanetbackend.component.size.ComponentSize;
 import com.pcplanet.pcplanetbackend.component.vendor.Vendor;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -26,8 +24,6 @@ public class GPU extends Component {
     private String connectionInterface;
     private String additionalPower;
     private Short recommendedPsuPower;
-    @ManyToOne
-    private ComponentSize size;
     @ManyToMany
     @JoinTable(name = "gpu_with_interface")
     private List<GPUOutputInterface> outputInterfaces;
@@ -35,6 +31,7 @@ public class GPU extends Component {
     public GPU(String name,
                String sku,
                Vendor vendor,
+               String imageHRef,
                String chip,
                Short chipFrequency,
                Short memoryAmount,
@@ -44,9 +41,11 @@ public class GPU extends Component {
                String connectionInterface,
                String additionalPower,
                Short recommendedPsuPower,
-               ComponentSize size,
+               Float width,
+               Float depth,
+               Float height,
                List<GPUOutputInterface> outputInterfaces) {
-        super(name, sku, vendor);
+        super(name, sku, vendor, width, depth, height, imageHRef);
         this.chip = chip;
         this.chipFrequency = chipFrequency;
         this.memoryAmount = memoryAmount;
@@ -56,7 +55,6 @@ public class GPU extends Component {
         this.connectionInterface = connectionInterface;
         this.additionalPower = additionalPower;
         this.recommendedPsuPower = recommendedPsuPower;
-        this.size = size;
         this.outputInterfaces = outputInterfaces;
     }
 }

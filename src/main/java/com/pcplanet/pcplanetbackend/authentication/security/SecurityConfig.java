@@ -125,7 +125,8 @@ public class SecurityConfig {
                 .requestMatchers(
                         "api/v1/auth/sign-up",
                         "api/v1/auth/sign-in",
-                        "api/v1/components/**")
+                        "api/v1/components/**",
+                        "api/v1/content/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

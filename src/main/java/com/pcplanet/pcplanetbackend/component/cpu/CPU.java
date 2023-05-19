@@ -14,7 +14,7 @@ public class CPU extends Component {
     private Integer coreCount;
 
     public CPU(String name, String sku, Integer coreCount) {
-        super(name, sku, null);
+        super(name, sku, null, null, null, null, null);
         this.coreCount = coreCount;
     }
 }

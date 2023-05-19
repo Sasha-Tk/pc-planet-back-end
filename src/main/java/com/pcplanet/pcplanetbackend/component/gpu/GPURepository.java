@@ -5,9 +5,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface GPURepository extends JpaRepository<GPU, Long> {
-//    List<GPU> findAllByInterfacesIn(Collection<Interfaces> interfaces);
-//    GPU findGPUByChipAndSku(String chip, String sku);
-//    Boolean existsGPUBySkuAndChip(String sku, String chip);
-
 
 }

@@ -10,7 +10,8 @@ import java.util.List;
 public class GPUDTO {
     private String componentName;
     private String sku;
-    private String vendorName;
+    private String vendor;
+    private String imageURL;
     private String chip;
     private Short chipFrequency;
     private Short memoryAmount;

@@ -1,7 +1,7 @@
 package com.pcplanet.pcplanetbackend.component.mapper;
 
-import com.pcplanet.pcplanetbackend.component.gpu.GPUFilter;
-import com.pcplanet.pcplanetbackend.component.gpu.GPUFilterDTO;
+import com.pcplanet.pcplanetbackend.component.gpu.filter.GPUFilter;
+import com.pcplanet.pcplanetbackend.component.gpu.filter.GPUFilterDTO;
 import com.pcplanet.pcplanetbackend.component.gpu.output_interface.GPUOutputInterface;
 import com.pcplanet.pcplanetbackend.component.gpu.output_interface.GPUOutputInterfaceService;
 import com.pcplanet.pcplanetbackend.component.vendor.Vendor;
@@ -35,7 +35,9 @@ public class GPUFilterMapper implements Mapper<GPUFilterDTO, GPUFilter> {
                         gpuFilterDTO.getOutputInterfaces()
                                 .stream()
                                 .map(gpuOutputInterfaceService::findInterfaceByInterfaceName)
-                                .toList()
+                                .toList(),
+                gpuFilterDTO.getRecommendedPsuPower(),
+                gpuFilterDTO.getWidth()
         );
     }
 
@@ -55,7 +57,9 @@ public class GPUFilterMapper implements Mapper<GPUFilterDTO, GPUFilter> {
                 gpuFilter.getOutputInterfaces()
                         .stream()
                         .map(GPUOutputInterface::getInterfaceName)
-                        .toList()
+                        .toList(),
+                gpuFilter.getRecommendedPsuPower(),
+                gpuFilter.getWidth()
         );
     }
 }

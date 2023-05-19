@@ -1,12 +1,14 @@
 package com.pcplanet.pcplanetbackend.component.gpu;
 
-import com.pcplanet.pcplanetbackend.component.FilterDAO;
-import com.pcplanet.pcplanetbackend.component.gpu.output_interface.GPUOutputInterfaceService;
+import com.pcplanet.pcplanetbackend.component.ComponentListResponse;
+import com.pcplanet.pcplanetbackend.component.gpu.filter.GPUFilterDTO;
+import com.pcplanet.pcplanetbackend.component.gpu.filter.GPUFilterDTOResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api/v1/components/gpu")
@@ -14,11 +16,14 @@ import java.util.List;
 public class GPUController {
     private final GPUService gpuService;
 
-    @PostMapping
-    public ResponseEntity<GPU> createGPU(@RequestBody GPUDTO gpudto) {
-        return ResponseEntity.ok(gpuService.createGPU(gpudto));
+    @PostMapping("/new")
+    public ResponseEntity<GPU> createGPU(
+            @RequestBody GPUDTO gpuDTO,
+            @RequestParam String storeName,
+            @RequestParam Integer price
+    ) {
+        return ResponseEntity.ok(gpuService.createGPU(gpuDTO, storeName, price));
     }
-
     @DeleteMapping("/byID/{id}")
     public ResponseEntity<String> deleteGPU(@PathVariable Long id) {
         gpuService.deleteGPU(id);
@@ -30,18 +35,26 @@ public class GPUController {
         return ResponseEntity.ok(gpuService.updateGPU(id, gpuDTO));
     }
 
-    @GetMapping()
+    @PostMapping
+    public ResponseEntity<ComponentListResponse<GPU>> getAllGPUByParameters(
+            @RequestBody(required = false) GPUFilterDTO filter,
+            @RequestParam Integer page,
+            @RequestParam(required = false, defaultValue = "20") Integer pageSize,
+            @RequestParam(required = false) Optional<String> sortBy,
+            @RequestParam(required = false, defaultValue = "asc") String sortingOrder
+
+    ) {
+        return ResponseEntity.ok(gpuService.getAllGPUByParameters(filter, page - 1, pageSize, sortBy, sortingOrder));
+    }
+
+    @GetMapping("/all")
     public ResponseEntity<List<GPU>> getAllGPU() {
         return ResponseEntity.ok(gpuService.getAllGPU());
     }
 
-    @GetMapping("/filter")
-    public ResponseEntity<List<GPU>> getAllGPU(@RequestBody GPUFilterDTO gpuFilterDTO) {
-        return ResponseEntity.ok(gpuService.findGPUByFilterParameters(gpuFilterDTO));
-    }
 
     @GetMapping("/filters")
-    public ResponseEntity<GPUFilterDTO> getAllGPUFilters() {
+    public ResponseEntity<GPUFilterDTOResponse> getAllGPUFilters() {
         return ResponseEntity.ok(gpuService.getAllGPUFilters());
     }
 }
