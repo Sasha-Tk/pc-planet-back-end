@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
-public class GPUFilterDTOResponseItem {
+public class ComponentFilterDTOResponseItem {
     private String filterName;
     private String filterType;
     private List<?> availableFilters;

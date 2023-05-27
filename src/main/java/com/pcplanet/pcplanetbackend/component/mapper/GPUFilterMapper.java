@@ -17,6 +17,9 @@ public class GPUFilterMapper implements Mapper<GPUFilterDTO, GPUFilter> {
 
     @Override
     public GPUFilter mapToEntity(GPUFilterDTO gpuFilterDTO) {
+        if (gpuFilterDTO == null) {
+            gpuFilterDTO = new GPUFilterDTO();
+        }
         return new GPUFilter(
                 gpuFilterDTO.getVendor() == null ?
                         null :

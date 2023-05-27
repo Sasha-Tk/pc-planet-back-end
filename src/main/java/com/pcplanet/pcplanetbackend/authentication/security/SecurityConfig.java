@@ -126,7 +126,8 @@ public class SecurityConfig {
                         "api/v1/auth/sign-up",
                         "api/v1/auth/sign-in",
                         "api/v1/components/**",
-                        "api/v1/content/**")
+                        "api/v1/content/**",
+                        "api/v1/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

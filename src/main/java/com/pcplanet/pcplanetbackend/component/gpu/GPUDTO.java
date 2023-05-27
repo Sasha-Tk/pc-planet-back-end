@@ -1,5 +1,6 @@
 package com.pcplanet.pcplanetbackend.component.gpu;
 
+import com.pcplanet.pcplanetbackend.component.ComponentDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -7,11 +8,7 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
-public class GPUDTO {
-    private String componentName;
-    private String sku;
-    private String vendor;
-    private String imageURL;
+public class GPUDTO extends ComponentDTO {
     private String chip;
     private Short chipFrequency;
     private Short memoryAmount;
@@ -21,6 +18,5 @@ public class GPUDTO {
     private String connectionInterface;
     private String additionalPower;
     private Short recommendedPsuPower;
-    private List<Float> size;
     private List<String> outputInterfaces;
 }

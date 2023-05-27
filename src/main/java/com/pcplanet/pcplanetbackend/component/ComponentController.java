@@ -11,27 +11,27 @@ import java.util.List;
 @RequestMapping("api/v1/components")
 @RequiredArgsConstructor
 public class ComponentController {
-    private final GPURepository gpuRepository;
-    private final ComponentRepository componentRepository;
-
-    @GetMapping()
-    public ResponseEntity<List<Component>> getGpuById() {
-        return ResponseEntity.ok(componentRepository.findAll());
-    }
-    @GetMapping("/byID/{id}")
-    public ResponseEntity<Component> getGpuById(@PathVariable Long id) {
-        return ResponseEntity.ok(componentRepository.findById(id).get());
-    }
-
-    @DeleteMapping("/byID/{id}")
-    public ResponseEntity<List<Component>> deleteProductById(@PathVariable Long id){
-        componentRepository.deleteById(id);
-        return ResponseEntity.ok(componentRepository.findAll());
-    }
-
-    @PostMapping()
-    public ResponseEntity<List<Component>> createProduct(@RequestBody Component newProduct){
-        componentRepository.save(newProduct);
-        return ResponseEntity.ok(componentRepository.findAll());
-    }
+//    private final GPURepository gpuRepository;
+//    private final ComponentR componentR;
+//
+//    @GetMapping()
+//    public ResponseEntity<List<Component>> getGpuById() {
+//        return ResponseEntity.ok(componentR.findAll());
+//    }
+//    @GetMapping("/byID/{id}")
+//    public ResponseEntity<Component> getGpuById(@PathVariable Long id) {
+//        return ResponseEntity.ok(componentR.findById(id).get());
+//    }
+//
+//    @DeleteMapping("/byID/{id}")
+//    public ResponseEntity<List<Component>> deleteProductById(@PathVariable Long id){
+//        componentR.deleteById(id);
+//        return ResponseEntity.ok(componentR.findAll());
+//    }
+//
+//    @PostMapping()
+//    public ResponseEntity<List<Component>> createProduct(@RequestBody Component newProduct){
+//        componentR.save(newProduct);
+//        return ResponseEntity.ok(componentR.findAll());
+//    }
 }

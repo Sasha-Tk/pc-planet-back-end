@@ -13,8 +13,9 @@ import lombok.NoArgsConstructor;
 public class GPUOutputInterface {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Short id;
     private String interfaceName;
+
     public GPUOutputInterface(String interfaceName) {
         this.interfaceName = interfaceName;
     }

@@ -1,5 +1,6 @@
 package com.pcplanet.pcplanetbackend.component;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pcplanet.pcplanetbackend.component.price_history.PriceHistory;
 import com.pcplanet.pcplanetbackend.component.vendor.Vendor;
 import jakarta.persistence.*;
@@ -31,8 +32,8 @@ public class Component {
 
     @Transient
     private Integer lowerPrice;
-    //    @JsonIgnore
-    @OneToMany
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PriceHistory> priceHistoryList;
     private String imageURL;
 
@@ -44,15 +45,23 @@ public class Component {
         this.width = width;
         this.depth = depth;
         this.height = height;
-        this.priceHistoryList = new ArrayList<>();
     }
 
     public Integer getLowerPrice() {
-        List<PriceHistory> actualPrice = priceHistoryList.stream()
-                .filter(priceHistory -> priceHistory.getCheckDate().equals(LocalDate.now()))
-                .toList();
-        Optional<PriceHistory> minPrice = actualPrice.stream().min(Comparator.comparing(PriceHistory::getPrice));
-        this.lowerPrice = minPrice.map(PriceHistory::getPrice).orElse(null);
+        if (priceHistoryList != null) {
+            List<PriceHistory> actualPrice = priceHistoryList.stream()
+                    .filter(priceHistory -> priceHistory.getCheckDate().equals(LocalDate.now()))
+                    .toList();
+            Optional<PriceHistory> minPrice = actualPrice.stream().min(Comparator.comparing(PriceHistory::getPrice));
+            this.lowerPrice = minPrice.map(PriceHistory::getPrice).orElse(null);
+        }
         return lowerPrice;
+    }
+
+    public void addPriceHistory(PriceHistory priceHistory) {
+        if (this.priceHistoryList == null) {
+            this.priceHistoryList = new ArrayList<>();
+        }
+        this.priceHistoryList.add(priceHistory);
     }
 }

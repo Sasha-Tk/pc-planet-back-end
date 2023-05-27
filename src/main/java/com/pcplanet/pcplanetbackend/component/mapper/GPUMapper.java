@@ -5,6 +5,7 @@ import com.pcplanet.pcplanetbackend.component.gpu.GPUDTO;
 import com.pcplanet.pcplanetbackend.component.gpu.output_interface.GPUOutputInterfaceService;
 import com.pcplanet.pcplanetbackend.component.vendor.VendorService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 

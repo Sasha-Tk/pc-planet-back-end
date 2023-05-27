@@ -13,10 +13,10 @@ import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
-public class PartialUpdate<T, U> {
+public class PartialUpdate<C> {
     private final ObjectMapper objectMapper;
 
-    public T update(T target, U updater) {
+    public C update(C target, C updater) {
         Map<String, Object> fields = objectMapper.convertValue(updater, objectMapper.getTypeFactory().constructType(Map.class));
         fields.forEach((fieldName, fieldValue) -> {
             if (fieldValue != null) {

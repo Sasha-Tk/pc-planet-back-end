@@ -16,7 +16,6 @@ public class PriceHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private Store store;
     private Integer price;
     private LocalDate checkDate;
