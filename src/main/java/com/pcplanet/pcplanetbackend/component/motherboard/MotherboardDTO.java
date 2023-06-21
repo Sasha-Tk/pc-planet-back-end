@@ -13,6 +13,6 @@ public class MotherboardDTO extends ComponentDTO {
     private String memoryType;
     private Short memorySlotsAmount;
     private Short maxRamAmount;
-    Short sataConnectorsAmount;
-    Short m2ConnectorsAmount;
+    private Short sataConnectorsAmount;
+    private Short m2ConnectorsAmount;
 }

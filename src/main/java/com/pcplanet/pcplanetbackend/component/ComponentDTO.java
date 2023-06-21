@@ -1,6 +1,5 @@
 package com.pcplanet.pcplanetbackend.component;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.List;
@@ -11,5 +10,6 @@ public abstract class ComponentDTO {
     private String sku;
     private String vendor;
     private String imageURL;
+    private String componentURL;
     private List<Float> size;
 }

@@ -1,6 +1,7 @@
 package com.pcplanet.pcplanetbackend.component.case_fan;
 
 import com.pcplanet.pcplanetbackend.component.Component;
+import com.pcplanet.pcplanetbackend.component.ComponentType;
 import com.pcplanet.pcplanetbackend.component.case_fan.fan_power_connector.FanPowerConnector;
 import com.pcplanet.pcplanetbackend.component.vendor.Vendor;
 import jakarta.persistence.Entity;
@@ -35,7 +36,7 @@ public class CaseFan extends Component {
                    Float width,
                    Float depth,
                    Float height) {
-        super(name, sku, vendor, width, depth, height, imageURL);
+        super(ComponentType.CASE_FAN, name, sku, vendor, width, depth, height, imageURL);
         this.fanSize = fanSize;
         this.fanPowerConnector = fanPowerConnector;
         this.rpm = rpm;

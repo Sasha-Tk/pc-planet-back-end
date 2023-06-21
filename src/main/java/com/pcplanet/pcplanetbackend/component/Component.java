@@ -7,11 +7,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 
 
 @Data
@@ -22,6 +19,8 @@ public class Component {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Enumerated(EnumType.STRING)
+    private ComponentType componentType;
     private String componentName;
     @ManyToOne
     private Vendor vendor;
@@ -30,32 +29,22 @@ public class Component {
     private Float depth;
     private Float height;
 
-    @Transient
     private Integer lowerPrice;
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PriceHistory> priceHistoryList;
     private String imageURL;
 
-    public Component(String name, String sku, Vendor vendor, Float width, Float depth, Float height, String imageURL) {
-        this.vendor = vendor;
+    public Component(ComponentType componentType, String name, String sku, Vendor vendor, Float width, Float depth, Float height, String imageURL) {
+        this.componentType = componentType;
         this.componentName = name;
         this.sku = sku;
+        this.vendor = vendor;
         this.imageURL = imageURL;
         this.width = width;
         this.depth = depth;
         this.height = height;
-    }
-
-    public Integer getLowerPrice() {
-        if (priceHistoryList != null) {
-            List<PriceHistory> actualPrice = priceHistoryList.stream()
-                    .filter(priceHistory -> priceHistory.getCheckDate().equals(LocalDate.now()))
-                    .toList();
-            Optional<PriceHistory> minPrice = actualPrice.stream().min(Comparator.comparing(PriceHistory::getPrice));
-            this.lowerPrice = minPrice.map(PriceHistory::getPrice).orElse(null);
-        }
-        return lowerPrice;
+        this.priceHistoryList = new ArrayList<>();
     }
 
     public void addPriceHistory(PriceHistory priceHistory) {

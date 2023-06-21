@@ -27,10 +27,10 @@ public class ComponentFilterDTOResponse {
     }
 
     public ComponentFilterDTOResponseItem getFilterByName(String filterName) {
-        return filters.stream().filter(filter -> filter.getFilterName().equals(filterName)).toList().get(0);
+        return new ComponentFilterDTOResponseItem(filters.stream().filter(filter -> filter.getFilterName().equals(filterName)).toList().get(0));
     }
 
-    public void addFilter(ComponentFilterDTOResponseItem newFilter){
+    public void addFilter(ComponentFilterDTOResponseItem newFilter) {
         this.filters.add(newFilter);
     }
 }

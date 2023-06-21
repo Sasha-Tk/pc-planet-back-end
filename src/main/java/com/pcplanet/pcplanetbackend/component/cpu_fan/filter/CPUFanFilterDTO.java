@@ -18,13 +18,15 @@ public class CPUFanFilterDTO extends ComponentFilter {
     private List<Short> maxTdp;
     private List<Float> maxNoiseLevel;
     private List<Short> cpuFanCount;
+    private List<Float> height;
 
     @Override
     public List<String> rangeFiltersName() {
         return List.of(
                 "maxTdp",
                 "maxNoiseLevel",
-                "caseFanCount"
+                "caseFanCount",
+                "height"
         );
     }
 }

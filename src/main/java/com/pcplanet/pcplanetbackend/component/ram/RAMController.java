@@ -18,6 +18,7 @@ import java.util.Optional;
 public class RAMController {
     private final RAMMapper ramMapper;
     private final RAMService ramService;
+    private final RAMResponseMapper ramResponseMapper;
 
     @PostMapping("/new")
     public ResponseEntity<RAM> createRAM(
@@ -55,6 +56,16 @@ public class RAMController {
     public ResponseEntity<List<RAM>> getAllRAM() {
         return ResponseEntity.ok(ramService.getAllComponents());
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<RAMResponseDTO> getRAMById(@PathVariable Long id){
+        return ResponseEntity.ok(ramResponseMapper.mapToDTO(ramService.findComponentById(id)));
+    }
+
+//    @GetMapping("/{sku}")
+//    public ResponseEntity<RAMResponseDTO> getRAMBySku(@PathVariable String sku){
+//        return ResponseEntity.ok(ramResponseMapper.mapToDTO(ramService.findComponentBySku(sku)));
+//    }
 
     @GetMapping("/filters")
     public ResponseEntity<ComponentFilterDTOResponse> getAllRAMFilters() {

@@ -8,14 +8,17 @@ import com.pcplanet.pcplanetbackend.store.Store;
 import com.pcplanet.pcplanetbackend.store.StoreService;
 import com.pcplanet.pcplanetbackend.utils.PartialUpdate;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -33,18 +36,25 @@ public class ComponentService<
     private StoreService storeService;
     private PriceHistoryService priceHistoryService;
 
-
     public C createComponent(CDTO componentDTO, String storeName, Integer price) {
         Store store = storeService.createNewStoreOrGetExisting(storeName);
-        PriceHistory priceHistory = priceHistoryService.createPriceHistory(new PriceHistory(store, price));
+        PriceHistory priceHistory = priceHistoryService.createPriceHistory(new PriceHistory(store, price, componentDTO.getComponentURL()));
         Optional<C> componentBySku = componentRepository.findBySku(componentDTO.getSku());
         C component = componentBySku.orElseGet(() -> componentMapper.mapToEntity(componentDTO));
         component.addPriceHistory(priceHistory);
+        component.setLowerPrice(
+                component.getPriceHistoryList()
+                        .stream()
+                        .filter(ph -> Duration.between(ph.getCheckDate(), Instant.now()).toHours() <= 24)
+                        .min(Comparator.comparing(PriceHistory::getPrice))
+                        .map(PriceHistory::getPrice)
+                        .orElse(null)
+        );
         return componentRepository.save(component);
     }
 
     public C findComponentById(Long id) {
-        return componentRepository.findById(id).orElseThrow();
+        return componentRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No component with id " + id));
     }
 
     public C findComponentBySku(String sku) {
@@ -65,7 +75,8 @@ public class ComponentService<
                 PageRequest.of(
                         page,
                         pageSize,
-                        sortField.map(sort -> Sort.by(Sort.Direction.fromString(sortingOrder), sort)).orElseGet(Sort::unsorted))
+                        sortField.map(sort -> Sort.by(Sort.Direction.fromString(sortingOrder), sort)).orElseGet(Sort::unsorted)
+                )
         );
     }
 

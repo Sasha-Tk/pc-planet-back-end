@@ -18,6 +18,7 @@ import java.util.Optional;
 public class CaseFanController {
     private final CaseFanMapper caseFanMapper;
     private final CaseFanService caseFanService;
+    private final CaseFanResponseMapper caseFanResponseMapper;
 
     @PostMapping("/new")
     public ResponseEntity<CaseFan> createCaseFan(
@@ -55,6 +56,16 @@ public class CaseFanController {
     public ResponseEntity<List<CaseFan>> getAllCaseFans() {
         return ResponseEntity.ok(caseFanService.getAllComponents());
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CaseFanResponseDTO> getCaseFanById(@PathVariable Long id){
+        return ResponseEntity.ok(caseFanResponseMapper.mapToDTO(caseFanService.findComponentById(id)));
+    }
+
+//    @GetMapping("/{sku}")
+//    public ResponseEntity<CaseFanResponseDTO> getCaseFanBySku(@PathVariable String sku){
+//        return ResponseEntity.ok(caseFanResponseMapper.mapToDTO(caseFanService.findComponentBySku(sku)));
+//    }
 
     @GetMapping("/filters")
     public ResponseEntity<ComponentFilterDTOResponse> getAllCaseFanFilters() {

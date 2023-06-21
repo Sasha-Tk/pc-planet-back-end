@@ -1,9 +1,7 @@
 package com.pcplanet.pcplanetbackend.component.psu;
 
 import com.pcplanet.pcplanetbackend.component.ComponentListResponse;
-import com.pcplanet.pcplanetbackend.component.ComponentService;
 import com.pcplanet.pcplanetbackend.component.gpu.filter.ComponentFilterDTOResponse;
-import com.pcplanet.pcplanetbackend.component.mapper.PSUFilterMapper;
 import com.pcplanet.pcplanetbackend.component.mapper.PSUMapper;
 import com.pcplanet.pcplanetbackend.component.psu.filter.PSUFilter;
 import com.pcplanet.pcplanetbackend.component.psu.filter.PSUFilterDTO;
@@ -19,11 +17,10 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class PSUController {
     private final PSUMapper psuMapper;
-    private final PSUFilterMapper psuFilterMapper;
+    private final PSUService psuService;
+    private final PSUResponseMapper psuResponseMapper;
 
 //    private final ComponentService<PSU, PSUDTO, PSUFilter, PSUFilterDTO> psuService;
-    private final PSUService psuService;
-
     @PostMapping("/new")
     public ResponseEntity<PSU> createPSU(
             @RequestBody PSUDTO psuDTO,
@@ -60,6 +57,16 @@ public class PSUController {
     public ResponseEntity<List<PSU>> getAllPSU() {
         return ResponseEntity.ok(psuService.getAllComponents());
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PSUResponseDTO> getPSUById(@PathVariable Long id){
+        return ResponseEntity.ok(psuResponseMapper.mapToDTO(psuService.findComponentById(id)));
+    }
+
+//    @GetMapping("/{sku}")
+//    public ResponseEntity<PSUResponseDTO> getPSUBySku(@PathVariable String sku){
+//        return ResponseEntity.ok(psuResponseMapper.mapToDTO(psuService.findComponentBySku(sku)));
+//    }
 
     @GetMapping("/filters")
     public ResponseEntity<ComponentFilterDTOResponse> getAllPSUFilters() {

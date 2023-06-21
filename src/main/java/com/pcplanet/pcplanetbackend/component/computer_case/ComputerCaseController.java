@@ -18,6 +18,7 @@ import java.util.Optional;
 public class ComputerCaseController {
     private final ComputerCaseMapper computerCaseMapper;
     private final ComputerCaseService computerCaseService;
+    private final ComputerCaseResponseMapper computerCaseResponseMapper;
 
     @PostMapping("/new")
     public ResponseEntity<ComputerCase> createComputerCase(
@@ -55,6 +56,16 @@ public class ComputerCaseController {
     public ResponseEntity<List<ComputerCase>> getAllComputerCases() {
         return ResponseEntity.ok(computerCaseService.getAllComponents());
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ComputerCaseResponseDTO> getComputerCaseById(@PathVariable Long id){
+        return ResponseEntity.ok(computerCaseResponseMapper.mapToDTO(computerCaseService.findComponentById(id)));
+    }
+
+//    @GetMapping("/{sku}")
+//    public ResponseEntity<ComputerCaseResponseDTO> getComputerCaseBySku(@PathVariable String sku){
+//        return ResponseEntity.ok(computerCaseResponseMapper.mapToDTO(computerCaseService.findComponentBySku(sku)));
+//    }
 
     @GetMapping("/filters")
     public ResponseEntity<ComponentFilterDTOResponse> getAllComputerCaseFilters() {

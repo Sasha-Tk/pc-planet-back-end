@@ -1,6 +1,7 @@
 package com.pcplanet.pcplanetbackend.component.cpu;
 
 import com.pcplanet.pcplanetbackend.component.Component;
+import com.pcplanet.pcplanetbackend.component.ComponentType;
 import com.pcplanet.pcplanetbackend.component.cpu.socket.Socket;
 import com.pcplanet.pcplanetbackend.component.vendor.Vendor;
 import jakarta.persistence.Entity;
@@ -33,7 +34,7 @@ public class CPU extends Component {
                Short cpuFrequency,
                String memoryType,
                Short tdpPower) {
-        super(name, sku, vendor, null,null,null, imageURL);
+        super(ComponentType.CPU, name, sku, vendor, null, null, null, imageURL);
         this.cpuFamily = cpuFamily;
         this.socket = socket;
         this.coreCount = coreCount;

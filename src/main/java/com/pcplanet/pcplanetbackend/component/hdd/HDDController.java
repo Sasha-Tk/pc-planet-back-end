@@ -20,6 +20,7 @@ public class HDDController {
     private final HDDMapper hddMapper;
     private final HDDFilterMapper hddFilterMapper;
     private final HDDService hddService;
+    private final HDDResponseMapper hddResponseMapper;
 
     @PostMapping("/new")
     public ResponseEntity<HDD> createHDD(
@@ -57,6 +58,16 @@ public class HDDController {
     public ResponseEntity<List<HDD>> getAllHDD() {
         return ResponseEntity.ok(hddService.getAllComponents());
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<HDDResponseDTO> getHDDById(@PathVariable Long id) {
+        return ResponseEntity.ok(hddResponseMapper.mapToDTO(hddService.findComponentById(id)));
+    }
+
+//    @GetMapping("/{sku}")
+//    public ResponseEntity<HDDResponseDTO> getHDDBySku(@PathVariable String sku) {
+//        return ResponseEntity.ok(hddResponseMapper.mapToDTO(hddService.findComponentBySku(sku)));
+//    }
 
     @GetMapping("/filters")
     public ResponseEntity<ComponentFilterDTOResponse> getAllHDDFilters() {

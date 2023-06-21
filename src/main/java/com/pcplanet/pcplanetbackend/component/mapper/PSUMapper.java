@@ -31,7 +31,7 @@ public class PSUMapper implements Mapper<PSUDTO, PSU> {
                 psuDTO.getNumberOfSataConnectors(),
                 psuDTO.getSize().get(0),
                 psuDTO.getSize().get(1),
-                psuDTO.getSize().get(2)
+                psuDTO.getSize().size() >= 3 ? psuDTO.getSize().get(2) : null
         );
     }
 }

@@ -1,6 +1,7 @@
 package com.pcplanet.pcplanetbackend.component.gpu;
 
 import com.pcplanet.pcplanetbackend.component.Component;
+import com.pcplanet.pcplanetbackend.component.ComponentType;
 import com.pcplanet.pcplanetbackend.component.gpu.output_interface.GPUOutputInterface;
 import com.pcplanet.pcplanetbackend.component.vendor.Vendor;
 import jakarta.persistence.Entity;
@@ -45,7 +46,7 @@ public class GPU extends Component {
                Float depth,
                Float height,
                List<GPUOutputInterface> outputInterfaces) {
-        super(name, sku, vendor, width, depth, height, imageHRef);
+        super(ComponentType.GPU, name, sku, vendor, width, depth, height, imageHRef);
         this.chip = chip;
         this.chipFrequency = chipFrequency;
         this.memoryAmount = memoryAmount;

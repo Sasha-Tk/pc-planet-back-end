@@ -2,13 +2,9 @@ package com.pcplanet.pcplanetbackend.component.motherboard;
 
 import com.pcplanet.pcplanetbackend.component.ComponentListResponse;
 import com.pcplanet.pcplanetbackend.component.gpu.filter.ComponentFilterDTOResponse;
-import com.pcplanet.pcplanetbackend.component.mapper.MotherboardFilterMapper;
 import com.pcplanet.pcplanetbackend.component.mapper.MotherboardMapper;
 import com.pcplanet.pcplanetbackend.component.motherboard.filter.MotherboardFilter;
 import com.pcplanet.pcplanetbackend.component.motherboard.filter.MotherboardFilterDTO;
-import com.pcplanet.pcplanetbackend.component.psu.PSU;
-import com.pcplanet.pcplanetbackend.component.psu.filter.PSUFilter;
-import com.pcplanet.pcplanetbackend.component.psu.filter.PSUFilterDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +17,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MotherboardController {
     private final MotherboardMapper motherboardMapper;
-    private final MotherboardFilterMapper motherboardFilterMapper;
     private final MotherboardService motherboardService;
+    private final MotherboardResponseMapper motherboardResponseMapper;
 
     @PostMapping("/new")
     public ResponseEntity<Motherboard> createMotherboard(
@@ -60,6 +56,16 @@ public class MotherboardController {
     public ResponseEntity<List<Motherboard>> getAllMotherboards() {
         return ResponseEntity.ok(motherboardService.getAllComponents());
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<MotherboardResponseDTO> getMotherboardById(@PathVariable Long id){
+        return ResponseEntity.ok(motherboardResponseMapper.mapToDTO(motherboardService.findComponentById(id)));
+    }
+
+//    @GetMapping("/{sku}")
+//    public ResponseEntity<MotherboardResponseDTO> getMotherboardBySku(@PathVariable String sku) {
+//        return ResponseEntity.ok(motherboardResponseMapper.mapToDTO(motherboardService.findComponentBySku(sku)));
+//    }
 
     @GetMapping("/filters")
     public ResponseEntity<ComponentFilterDTOResponse> getAllMotherboardFilters() {

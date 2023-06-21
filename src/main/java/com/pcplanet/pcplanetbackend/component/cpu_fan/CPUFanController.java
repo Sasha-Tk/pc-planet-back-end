@@ -18,6 +18,7 @@ import java.util.Optional;
 public class CPUFanController {
     private final CPUFanMapper cpuFanMapper;
     private final CPUFanService cpuFanService;
+    private final CPUFanResponseMapper cpuFanResponseMapper;
 
     @PostMapping("/new")
     public ResponseEntity<CPUFan> createCPUFan(
@@ -55,6 +56,16 @@ public class CPUFanController {
     public ResponseEntity<List<CPUFan>> getAllCPUFans() {
         return ResponseEntity.ok(cpuFanService.getAllComponents());
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CPUFanResponseDTO> getCPUFanById(@PathVariable Long id) {
+        return ResponseEntity.ok(cpuFanResponseMapper.mapToDTO(cpuFanService.findComponentById(id)));
+    }
+
+//    @GetMapping("/{sku}")
+//    public ResponseEntity<CPUFanResponseDTO> getCPUFanBySku(@PathVariable String sku){
+//        return ResponseEntity.ok(cpuFanResponseMapper.mapToDTO(cpuFanService.findComponentBySku(sku)));
+//    }
 
     @GetMapping("/filters")
     public ResponseEntity<ComponentFilterDTOResponse> getAllCPUFanFilters() {

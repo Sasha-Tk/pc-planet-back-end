@@ -28,9 +28,9 @@ public class CaseFanFilterMapper implements Mapper<CaseFanFilterDTO, CaseFanFilt
                                 .map(vendorService::findByVendorName)
                                 .toList(),
                 caseFanFilterDTO.getFanSize(),
-                caseFanFilterDTO.getCaseFanPowerConnector() == null ?
+                caseFanFilterDTO.getFanPowerConnector() == null ?
                         null :
-                        caseFanFilterDTO.getCaseFanPowerConnector()
+                        caseFanFilterDTO.getFanPowerConnector()
                                 .stream()
                                 .map(fanPowerConnectorService::findPowerConnectorByPowerConnectorName)
                                 .toList(),

@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.Instant;
 import java.time.LocalDate;
 
 @Entity
@@ -18,11 +19,13 @@ public class PriceHistory {
     @ManyToOne
     private Store store;
     private Integer price;
-    private LocalDate checkDate;
+    private Instant checkDate;
+    private String href;
 
-    public PriceHistory(Store store, Integer price) {
+    public PriceHistory(Store store, Integer price, String href) {
         this.store = store;
         this.price = price;
-        this.checkDate = LocalDate.now();
+        this.checkDate = Instant.now();
+        this.href = href;
     }
 }

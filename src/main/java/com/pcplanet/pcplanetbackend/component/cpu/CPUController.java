@@ -3,10 +3,8 @@ package com.pcplanet.pcplanetbackend.component.cpu;
 import com.pcplanet.pcplanetbackend.component.ComponentListResponse;
 import com.pcplanet.pcplanetbackend.component.cpu.filter.CPUFilter;
 import com.pcplanet.pcplanetbackend.component.cpu.filter.CPUFilterDTO;
-import com.pcplanet.pcplanetbackend.component.cpu.filter.CPUService;
 import com.pcplanet.pcplanetbackend.component.gpu.filter.ComponentFilterDTOResponse;
 import com.pcplanet.pcplanetbackend.component.mapper.CPUMapper;
-import com.pcplanet.pcplanetbackend.component.psu.PSU;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +18,7 @@ import java.util.Optional;
 public class CPUController {
     private final CPUMapper cpuMapper;
     private final CPUService cpuService;
+    private final CPUResponseMapper cpuResponseMapper;
 
     @PostMapping("/new")
     public ResponseEntity<CPU> createCPU(
@@ -57,6 +56,16 @@ public class CPUController {
     public ResponseEntity<List<CPU>> getAllCPU() {
         return ResponseEntity.ok(cpuService.getAllComponents());
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CPUResponseDTO> getCPUById(@PathVariable Long id){
+        return ResponseEntity.ok(cpuResponseMapper.mapToDTO(cpuService.findComponentById(id)));
+    }
+
+//    @GetMapping("/{sku}")
+//    public ResponseEntity<CPUResponseDTO> getCPUBySku(@PathVariable String sku){
+//        return ResponseEntity.ok(cpuResponseMapper.mapToDTO(cpuService.findComponentBySku(sku)));
+//    }
 
     @GetMapping("/filters")
     public ResponseEntity<ComponentFilterDTOResponse> getAllCPUFilters() {

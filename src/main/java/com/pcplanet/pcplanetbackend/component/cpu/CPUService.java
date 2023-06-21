@@ -1,10 +1,12 @@
-package com.pcplanet.pcplanetbackend.component.cpu.filter;
+package com.pcplanet.pcplanetbackend.component.cpu;
 
 import com.pcplanet.pcplanetbackend.component.ComponentRepository;
 import com.pcplanet.pcplanetbackend.component.ComponentService;
 import com.pcplanet.pcplanetbackend.component.FilterDAO;
 import com.pcplanet.pcplanetbackend.component.cpu.CPU;
 import com.pcplanet.pcplanetbackend.component.cpu.CPUDTO;
+import com.pcplanet.pcplanetbackend.component.cpu.filter.CPUFilter;
+import com.pcplanet.pcplanetbackend.component.cpu.filter.CPUFilterDTO;
 import com.pcplanet.pcplanetbackend.component.mapper.Mapper;
 import com.pcplanet.pcplanetbackend.component.price_history.PriceHistoryService;
 import com.pcplanet.pcplanetbackend.store.StoreService;

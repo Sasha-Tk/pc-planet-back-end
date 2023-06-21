@@ -13,7 +13,7 @@ import java.util.List;
 public class CaseFanFilterDTO extends ComponentFilter {
     private List<String> vendor;
     private List<Short> fanSize;
-    private List<String> caseFanPowerConnector;
+    private List<String> fanPowerConnector;
     private List<Short> rpm;
     private List<Float> maxNoiseLevel;
     private List<Short> caseFanCount;

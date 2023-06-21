@@ -1,6 +1,7 @@
 package com.pcplanet.pcplanetbackend.component.ssd;
 
 import com.pcplanet.pcplanetbackend.component.Component;
+import com.pcplanet.pcplanetbackend.component.ComponentType;
 import com.pcplanet.pcplanetbackend.component.vendor.Vendor;
 import jakarta.persistence.Entity;
 import lombok.Data;
@@ -28,7 +29,7 @@ public class SSD extends Component {
                Float width,
                Float depth,
                Float height) {
-        super(name, sku, vendor, width, depth, height, imageURL);
+        super(ComponentType.SSD, name, sku, vendor, width, depth, height, imageURL);
         this.driveCapacity = driveCapacity;
         this.sddConnectionInterface = sddConnectionInterface;
         this.formFactor = formFactor;

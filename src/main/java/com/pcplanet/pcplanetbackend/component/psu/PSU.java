@@ -1,6 +1,7 @@
 package com.pcplanet.pcplanetbackend.component.psu;
 
 import com.pcplanet.pcplanetbackend.component.Component;
+import com.pcplanet.pcplanetbackend.component.ComponentType;
 import com.pcplanet.pcplanetbackend.component.vendor.Vendor;
 import jakarta.persistence.Entity;
 import lombok.Data;
@@ -30,7 +31,7 @@ public class PSU extends Component {
                Float width,
                Float depth,
                Float height) {
-        super(name, sku, vendor, width, depth, height, imageHRef);
+        super(ComponentType.PSU, name, sku, vendor, width, depth, height, imageHRef);
         this.power = power;
         this.cpuPowerConnector = cpuPowerConnector;
         this.numberOfAdditionalPowerConnectorsForGpu = numberOfAdditionalPowerConnectorsForGpu;

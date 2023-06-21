@@ -1,7 +1,6 @@
 package com.pcplanet.pcplanetbackend.component.gpu;
 
 import com.pcplanet.pcplanetbackend.component.ComponentListResponse;
-import com.pcplanet.pcplanetbackend.component.ComponentService;
 import com.pcplanet.pcplanetbackend.component.gpu.filter.ComponentFilterDTOResponse;
 import com.pcplanet.pcplanetbackend.component.gpu.filter.GPUFilter;
 import com.pcplanet.pcplanetbackend.component.gpu.filter.GPUFilterDTO;
@@ -21,8 +20,7 @@ public class GPUController {
     private final GPUMapper gpuMapper;
     private final GPUFilterMapper gpuFilterMapper;
     private final GPUService gpuService;
-//    private final ComponentService<GPU, GPUDTO, GPUFilter, GPUFilterDTO> gpuService;
-
+    private final GPUResponseMapper gpuResponseMapper;
 
     @PostMapping("/new")
     public ResponseEntity<GPU> createGPU(
@@ -59,6 +57,11 @@ public class GPUController {
     @GetMapping
     public ResponseEntity<List<GPU>> getAllGPU() {
         return ResponseEntity.ok(gpuService.getAllComponents());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<GPUResponseDTO> getGPUById(@PathVariable Long id) {
+        return ResponseEntity.ok(gpuResponseMapper.mapToDTO(gpuService.findComponentById(id)));
     }
 
     @GetMapping("/filters")

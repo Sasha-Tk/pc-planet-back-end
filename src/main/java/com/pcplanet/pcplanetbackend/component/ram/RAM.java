@@ -1,6 +1,7 @@
 package com.pcplanet.pcplanetbackend.component.ram;
 
 import com.pcplanet.pcplanetbackend.component.Component;
+import com.pcplanet.pcplanetbackend.component.ComponentType;
 import com.pcplanet.pcplanetbackend.component.vendor.Vendor;
 import jakarta.persistence.Entity;
 import lombok.Data;
@@ -28,7 +29,7 @@ public class RAM extends Component {
                Float width,
                Float depth,
                Float height) {
-        super(name, sku, vendor, width, depth, height, imageURL);
+        super(ComponentType.RAM, name, sku, vendor, width, depth, height, imageURL);
         this.memoryType = memoryType;
         this.memoryAmount = memoryAmount;
         this.memoryFrequency = memoryFrequency;

@@ -49,7 +49,8 @@ public class CPUFanFilterMapper implements Mapper<CPUFanFilterDTO, CPUFanFilter>
                                 .toList(),
                 cpuFanFilterDTO.getMaxTdp(),
                 cpuFanFilterDTO.getMaxNoiseLevel(),
-                cpuFanFilterDTO.getCpuFanCount()
+                cpuFanFilterDTO.getCpuFanCount(),
+                cpuFanFilterDTO.getHeight()
         );
     }
 
@@ -71,7 +72,8 @@ public class CPUFanFilterMapper implements Mapper<CPUFanFilterDTO, CPUFanFilter>
                         .toList(),
                 cpuFanFilter.getMaxTdp(),
                 cpuFanFilter.getMaxNoiseLevel(),
-                cpuFanFilter.getCpuFanCount()
+                cpuFanFilter.getCpuFanCount(),
+                cpuFanFilter.getHeight()
         );
     }
 }

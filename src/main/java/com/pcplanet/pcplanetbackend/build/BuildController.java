@@ -1,6 +1,7 @@
 package com.pcplanet.pcplanetbackend.build;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -8,14 +9,8 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class BuildController {
     private final BuildService buildService;
-    @PostMapping("/filters")
-    public ResponseFiltersInfo getFiltersForBuild(@RequestBody BuildDTO buildDTO){
-        return buildService.getFiltersForBuild(buildDTO);
-    }
 
-    @PostMapping("/compatibility")
-    public BuildCheckResponse checkCompatibility(@RequestBody BuildDTO buildDTO){
-        System.out.println(buildDTO);
-        return buildService.checkCompatibility(buildDTO);
+    public ResponseEntity<Build> createBuildOrUpdateExisting(@RequestBody BuildDTO buildDTO) {
+        return ResponseEntity.ok(buildService.createBuildOrUpdateExisting(buildDTO));
     }
 }

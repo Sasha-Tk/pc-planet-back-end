@@ -22,13 +22,15 @@ public class CPUFanFilter extends ComponentFilter {
     private List<Short> maxTdp = new ArrayList<>();
     private List<Float> maxNoiseLevel = new ArrayList<>();
     private List<Short> cpuFanCount = new ArrayList<>();
+    private List<Float> height = new ArrayList<>();
 
     @Override
     public List<String> rangeFiltersName() {
         return List.of(
                 "maxTdp",
                 "maxNoiseLevel",
-                "caseFanCount"
+                "caseFanCount",
+                "height"
         );
     }
 }

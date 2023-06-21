@@ -24,7 +24,6 @@ public class FilterDAO<C, F extends ComponentFilter> {
     private final EntityManager entityManager;
     private final ObjectMapper objectMapper;
 
-
     public ComponentListResponse<C> findComponentsByFilter(Class<C> componentClass, F filter, Pageable pageable) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<C> query = criteriaBuilder.createQuery(componentClass);
@@ -74,7 +73,6 @@ public class FilterDAO<C, F extends ComponentFilter> {
                 .setMaxResults(pageable.getPageSize()).getResultList());
     }
 
-
     public F getFilter(Class<C> componentClass, Class<F> filterClass) {
         try {
             F filter = filterClass.getDeclaredConstructor().newInstance();
@@ -103,3 +101,4 @@ public class FilterDAO<C, F extends ComponentFilter> {
         }
     }
 }
+

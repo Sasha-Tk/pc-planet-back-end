@@ -20,6 +20,7 @@ public class SSDController {
     private final SSDMapper ssdMapper;
     private final SSDFilterMapper ssdFilterMapper;
     private final SSDService ssdService;
+    private final SSDResponseMapper ssdResponseMapper;
 
     @PostMapping("/new")
     public ResponseEntity<SSD> createSSD(
@@ -57,6 +58,16 @@ public class SSDController {
     public ResponseEntity<List<SSD>> getAllSSD() {
         return ResponseEntity.ok(ssdService.getAllComponents());
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<SSDResponseDTO> getSSDById(@PathVariable Long id){
+        return ResponseEntity.ok(ssdResponseMapper.mapToDTO(ssdService.findComponentById(id)));
+    }
+
+//    @GetMapping("/{sku}")
+//    public ResponseEntity<SSDResponseDTO> getSSDBySku(@PathVariable String sku){
+//        return ResponseEntity.ok(ssdResponseMapper.mapToDTO(ssdService.findComponentBySku(sku)));
+//    }
 
     @GetMapping("/filters")
     public ResponseEntity<ComponentFilterDTOResponse> getAllSSDFilters() {
